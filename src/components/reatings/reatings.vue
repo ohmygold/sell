@@ -1,5 +1,5 @@
 <template>
- <div class="header">
+ <div class="reatings">
 11111111
  </div>
 </template>
