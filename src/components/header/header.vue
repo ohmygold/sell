@@ -17,12 +17,25 @@
         <span class="text">{{seller.supports[0].description}}</span>
       </div>
     </div>
-    <div v-if="seller.supports" class="support-count">
+    <div v-if="seller.supports" class="support-count"  @click="showDetail">
       <span class="count">{{seller.supports.length}}个</span>
       <i class="icon-keyboard_arrow_right"></i>
     </div>
   </div>
-  <div class=""></div>
+  <div class="bulletin-wrapper" @click="showDetail">
+    <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
+    <i class="icon-keyboard_arrow_right"></i>
+  </div>
+  <div class="background">
+    <img :src="seller.avatar" width="100%" height="100%">
+  </div>
+  <div class="detail" v-show="detailShow">
+    <div class="detail-wrapper clearfix">
+      <div class="detail-main">
+          <h1 class="name">{{seller.name}}</h1>
+      </div>
+    </div>  
+  </div>
  </div>
 </template>
 
@@ -38,7 +51,12 @@
    },
    data () {
      return {
-
+      detailShow: false
+     }
+   },
+   methods:{
+     showDetail(){
+       this.detailShow=true;
      }
    },
    components: {
@@ -50,7 +68,9 @@
 <style lang="scss">
 .header{
   color:#fff;
-  background:#ccc;
+  background:rgba(7, 17, 27, 0.5);
+  position: relative;
+  overflow:hidden;
   .content-wrapper{
     padding:24px 12px 18px 24px;
     font-size:0;
@@ -122,13 +142,74 @@
     .support-count{
         position: absolute;
         right: 12px;
-        bottom: 14px;
+        top: 74px;
         padding: 0 8px;
         height: 24px;
         line-height: 24px;
         border-radius: 14px;
         background: rgba(0, 0, 0, 0.2);
         text-align: center;
+        .count{
+          vertical-align: top;
+          font-size: 10px;
+        }  
+    }
+  }
+  .bulletin-wrapper{
+    position: relative;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 22px 0 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: rgba(7, 17, 27, 0.2);
+    .bulletin-title{
+      display:inline-block;
+      vertical-align: top;
+      margin-top: 8px;
+      width: 22px;
+      height: 12px; 
+      background-image:url("./bulletin@2x.png");
+      background-repeat:no-repeat;
+      background-size:22px 12px;
+    }
+    .bulletin-text{
+      vertical-align:top;
+      font-size:10px;
+      margin:0 4px;
+    }
+  }
+  .background{
+    position:absolute;
+    z-index:-1;
+    top:0;
+    lefe:0;
+    filter: blur(10px);
+    width:100%;
+    height:100%;
+  }
+  .detail{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    overflow:auto;
+    background:rgba(7,17,27,0.8);
+    z-index:100;
+    .detail-wrapper{
+      width:100%;
+      .detail-main{
+        margin-top: 64px;
+        padding-bottom: 64px;
+        .name{
+          line-height: 16px;
+          text-align: center;
+          font-size: 16px;
+          font-weight: 700;
+        }
+      }
     }
   }
 }
